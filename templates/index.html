@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Биномиальное распределение — Монте-Карло</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; padding: 0 20px; }
+        h1 { color: #2c3e50; }
+        form { background: #f4f6f8; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        input[type="text"] { padding: 8px; width: 200px; border: 1px solid #ccc; border-radius: 4px; }
+        button { margin-top: 15px; padding: 10px 20px; background: #3498db; color: white;
+                 border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        button:hover { background: #2980b9; }
+        .errors { color: #c0392b; background: #fdecea; padding: 10px; border-radius: 4px; margin-bottom: 15px; }
+        .errors li { margin: 4px 0; }
+        .plot { text-align: center; margin-top: 20px; }
+        .plot img { max-width: 100%; border: 1px solid #ddd; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <h1>Биномиальное распределение</h1>
+    <p>Моделирование методом Монте-Карло с наложением теоретической кривой.</p>
+
+    <form method="POST">
+        <label for="n">Число испытаний Бернулли (n):</label>
+        <input type="text" id="n" name="n" value="{{ n_val }}" required>
+
+        <label for="p">Вероятность успеха (p):</label>
+        <input type="text" id="p" name="p" value="{{ p_val }}" placeholder="напр. 0.3 или 0,3" required>
+
+        <label for="ch">Число опытов:</label>
+        <input type="text" id="ch" name="ch" value="{{ ch_val }}" required>
+
+        <button type="submit">Построить график</button>
+    </form>
+
+    {% if errors %}
+        <div class="errors">
+            <strong>Ошибки ввода:</strong>
+            <ul>
+                {% for e in errors %}
+                    <li>{{ e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if img_b64 %}
+        <div class="plot">
+            <img src="data:image/png;base64,{{ img_b64 }}" alt="График биномиального распределения">
+        </div>
+    {% endif %}
+</body>
+</html>
