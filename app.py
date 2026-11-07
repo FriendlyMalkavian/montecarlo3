@@ -59,8 +59,23 @@ def pCheck():
         except Exception as e:
             print(f"Неизвестная ошибка: {e}")
         
+def nCheck():
+    while True:
+        n = input("Введите число испытаний Бернулли в каждом опыте: ")
+        try:
+            n = int(n)
+            if n > 0:
+                return n
+            else:
+                print("n должно быть натуральным")
+                continue
+        except ValueError:
+            print("Проверьте значение аргумента n")
+        except Exception as e:
+            print(f"Неизвестная ошибка: {e}")
+
 def usersInput():
-    n = int(input("Введите число испытаний Бернулли в каждом опыте: "))
+    n = nCheck()#Проверка содержимого на натуральное значение
     p = pCheck()#проверка содержимого на запятую, но не на значение
     ch = int(input("Введите общее число опытов: "))
     return n, p , ch
