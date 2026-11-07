@@ -74,12 +74,33 @@ def nCheck():
         except Exception as e:
             print(f"Неизвестная ошибка: {e}")
 
+def chCheck():
+    while True:
+        ch = input("Введите число опытов: ")
+        try:
+            ch = int(ch)
+            if ch > 0:
+                if ch > 1000000:
+                    ans = input("Большое число опытов займёт много времени. Введите y/Y чтобы продолжить либо любую клавишу чтобы повторить ввод числа опытов")
+                    if ans == "y" or ans == "Y":
+                        print("Думаю")
+                        return ch
+                    else:
+                        continue
+                return ch
+            else:
+                print("Число опытов должно быть натуральным")
+                continue
+        except ValueError:
+            print("Проверьте значение числа опытов")
+        except Exception as e:
+            print(f"Неизвестная ошибка: {e}")
+    
 def usersInput():
     n = nCheck()#Проверка содержимого на натуральное значение
     p = pCheck()#проверка содержимого на запятую, но не на значение
-    ch = int(input("Введите общее число опытов: "))
+    ch = chCheck()
     return n, p , ch
-
 
 #Главная функция
 def main():
@@ -93,13 +114,6 @@ def main():
     
     if n > 0 and ch > 0:
         while True:
-            if ch > 1000000:
-                ans = input("Введите y/Y  чтобы продолжить")
-                if ans == "y" or ans == "Y":
-                    print("Думаю")
-                else:
-                    print("Программа прервана пользователем")
-                    break
             segments, y_values, experiments = MonteCarloBinomial(ch, n, p)
 
             #Список полученных теоретических значений
